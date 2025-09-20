@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>American Express Campus Challenge 2025 - Trinity Model Documentation</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    :root {
+      --primary: #00D4FF;
+      --primary-dark: #0099CC;
+      --secondary: #7B61FF;
+      --accent: #FF6B6B;
+      --success: #4ECDC4;
+      --warning: #FFD93D;
+      
+      --bg-dark: #0A0E27;
+      --bg-card: #0F1629;
+      --bg-card-hover: #141B3C;
+      --bg-code: #1A1F3A;
+      
+      --text-primary: #FFFFFF;
+      --text-secondary: #B4B9CE;
+      --text-muted: #6C7293;
+      
+      --border: rgba(255, 255, 255, 0.1);
+      --border-hover: rgba(0, 212, 255, 0.5);
+      
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      --shadow-hover: 0 20px 40px rgba(0, 212, 255, 0.2);
+      
+      --gradient-primary: linear-gradient(135deg, #00D4FF 0%, #7B61FF 100%);
+      --gradient-dark: linear-gradient(135deg, #0A0E27 0%, #0F1629 100%);
+      --gradient-accent: linear-gradient(135deg, #FF6B6B 0%, #FFD93D 100%);
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text-primary);
+      background: var(--bg-dark);
+      overflow-x: hidden;
+    }
+    
+    /* Background Animation */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background:
+              radial-gradient(circle at 20% 80%, rgba(0, 212, 255, 0.05) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(123, 97, 255, 0.05) 0%, transparent 50%),
+              radial-gradient(circle at 40% 40%, rgba(255, 107, 107, 0.05) 0%, transparent 50%);
+      animation: backgroundShift 20s ease-in-out infinite;
+      z-index: -1;
+    }
+    
+    @keyframes backgroundShift {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      33% { transform: scale(1.1) rotate(120deg); }
+      66% { transform: scale(0.9) rotate(240deg); }
+    }
+    
+    /* Header */
+    .header {
+      background: var(--gradient-primary);
+      color: white;
+      padding: 5rem 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: repeating-linear-gradient(
+              45deg,
+              transparent,
+              transparent 10px,
+              rgba(255, 255, 255, 0.05) 10px,
+              rgba(255, 255, 255, 0.05) 20px
+      );
+      animation: headerPattern 20s linear infinite;
+    }
+    
+    @keyframes headerPattern {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(20px, 20px); }
+    }
+    
+    .header h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      letter-spacing: -1px;
+      position: relative;
+      z-index: 1;
+      animation: fadeInDown 1s ease-out;
+    }
+    
+    .header p {
+      font-size: 1.5rem;
+      opacity: 0.9;
+      font-weight: 300;
+      position: relative;
+      z-index: 1;
+      animation: fadeInUp 1s ease-out 0.3s both;
+    }
+    
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    
+    /* Navigation */
+    .nav {
+      background: rgba(15, 22, 41, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      animation: slideDown 0.5s ease-out;
+    }
+    
+    @keyframes slideDown {
+      from {
+        transform: translateY(-100%);
+      }
+      to {
+        transform: translateY(0);
+      }
+    }
+    
+    .nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+      padding: 1.5rem 0;
+    }
+    
+    .nav a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 0.5rem 1.5rem;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .nav a:hover {
+      color: var(--text-primary);
+      background: rgba(0, 212, 255, 0.1);
+      transform: translateY(-2px);
+    }
+    
+    /* Section */
+    .section {
+      padding: 5rem 0;
+      position: relative;
+      animation: fadeIn 0.8s ease-out;
+    }
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .section h2 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 2rem;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .section h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--gradient-primary);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.5s ease;
+    }
+    
+    .section:hover h2::after {
+      transform: scaleX(1);
+    }
+    
+    .section h3 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: var(--text-primary);
+    }
+    
+    .section h4 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+    
+    /* Cards */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--gradient-primary);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--border-hover);
+      background: var(--bg-card-hover);
+    }
+    
+    /* Metrics Grid */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+    
+    .metric-card {
+      background: var(--bg-card);
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    
+    .metric-card::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: radial-gradient(circle, rgba(0, 212, 255, 0.3) 0%, transparent 70%);
+      transition: all 0.5s ease;
+      transform: translate(-50%, -50%);
+    }
+    
+    .metric-card:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+    
+    .metric-card:hover {
+      transform: translateY(-10px) scale(1.05);
+      border-color: var(--primary);
+      box-shadow: var(--shadow-hover);
+    }
+    
+    .metric-value {
+      font-size: 3rem;
+      font-weight: 800;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    
+    .metric-label {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 500;
+    }
+    
+    /* Tables */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 2rem 0;
+      background: var(--bg-card);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    
+    .data-table th {
+      background: var(--bg-code);
+      color: var(--primary);
+      padding: 1.25rem;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-bottom: 2px solid var(--border);
+    }
+    
+    .data-table td {
+      padding: 1.25rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-secondary);
+      transition: all 0.3s ease;
+    }
+    
+    .data-table tr:last-child td {
+      border-bottom: none;
+    }
+    
+    .data-table tr:hover td {
+      background: rgba(0, 212, 255, 0.05);
+      color: var(--text-primary);
+    }
+    
+    /* Code Blocks */
+    .code-block {
+      background: var(--bg-code);
+      color: #e6e6e6;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      margin: 2rem 0;
+      overflow-x: auto;
+      font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', monospace;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      position: relative;
+    }
+    
+    .code-block::before {
+      content: 'Python';
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: var(--gradient-primary);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0 12px 0 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .code-block pre {
+      margin: 0;
+      color: #e6e6e6;
+    }
+    
+    /* Syntax highlighting */
+    .code-block .comment {
+      color: #6A9955;
+      font-style: italic;
+    }
+    
+    .code-block .keyword {
+      color: #C586C0;
+    }
+    
+    .code-block .string {
+      color: #CE9178;
+    }
+    
+    .code-block .number {
+      color: #B5CEA8;
+    }
+    
+    .code-block .function {
+      color: #DCDCAA;
+    }
+    
+    .code-block .variable {
+      color: #9CDCFE;
+    }
+    
+    /* Alert Boxes */
+    .alert {
+      padding: 1.5rem 2rem;
+      border-radius: 12px;
+      margin: 2rem 0;
+      border-left: 4px solid;
+      position: relative;
+      overflow: hidden;
+      animation: slideInLeft 0.5s ease-out;
+    }
+    
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+    
+    .alert-info {
+      background: rgba(0, 212, 255, 0.1);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    
+    .alert-success {
+      background: rgba(78, 205, 196, 0.1);
+      border-color: var(--success);
+      color: var(--success);
+    }
+    
+    /* Feature Grid */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+    
+    .feature-card {
+      background: linear-gradient(135deg, var(--bg-card) 0%, rgba(0, 212, 255, 0.05) 100%);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: var(--gradient-primary);
+      border-radius: 16px;
+      opacity: 0;
+      z-index: -1;
+      transition: opacity 0.3s ease;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+      border-color: transparent;
+    }
+    
+    .feature-card:hover::before {
+      opacity: 1;
+    }
+    
+    .feature-card h4 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-size: 1.25rem;
+    }
+    
+    .feature-card p {
+      color: var(--text-secondary);
+      line-height: 1.8;
+    }
+    
+    /* Lists */
+    ul {
+      margin: 1rem 0;
+      padding-left: 2rem;
+    }
+    
+    li {
+      margin-bottom: 0.75rem;
+      color: var(--text-secondary);
+      position: relative;
+      padding-left: 1.5rem;
+      list-style: none;
+    }
+    
+    li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-weight: bold;
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-3px); }
+    }
+    
+    /* Pipeline */
+    .pipeline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 3rem 0;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+    
+    .pipeline-step {
+      flex: 1;
+      min-width: 250px;
+      background: var(--bg-card);
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      position: relative;
+      transition: all 0.3s ease;
+      animation: slideUp 0.6s ease-out;
+      animation-fill-mode: both;
+    }
+    
+    .pipeline-step:nth-child(1) { animation-delay: 0s; }
+    .pipeline-step:nth-child(2) { animation-delay: 0.1s; }
+    .pipeline-step:nth-child(3) { animation-delay: 0.2s; }
+    .pipeline-step:nth-child(4) { animation-delay: 0.3s; }
+    
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .pipeline-step:hover {
+      transform: translateY(-10px);
+      border-color: var(--primary);
+      box-shadow: var(--shadow-hover);
+      background: var(--bg-card-hover);
+    }
+    
+    .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      background: var(--gradient-primary);
+      color: white;
+      border-radius: 50%;
+      font-weight: 800;
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      animation: rotateIn 0.6s ease-out;
+    }
+    
+    @keyframes rotateIn {
+      from {
+        transform: rotate(-180deg) scale(0);
+      }
+      to {
+        transform: rotate(0) scale(1);
+      }
+    }
+    
+    .pipeline-step:not(:last-child)::after {
+      content: '→';
+      position: absolute;
+      right: -1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2rem;
+      color: var(--primary);
+      animation: arrowPulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes arrowPulse {
+      0%, 100% {
+        opacity: 0.5;
+        transform: translateY(-50%) translateX(0);
+      }
+      50% {
+        opacity: 1;
+        transform: translateY(-50%) translateX(5px);
+      }
+    }
+    
+    /* Feature Importance */
+    .importance-bar {
+      display: flex;
+      align-items: center;
+      margin: 1rem 0;
+      gap: 1rem;
+    }
+    
+    .importance-label {
+      flex: 0 0 280px;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+    
+    .importance-progress {
+      flex: 1;
+      height: 24px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .importance-fill {
+      height: 100%;
+      background: var(--gradient-primary);
+      transition: width 1s ease-out;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .importance-fill::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      animation: shimmer 2s infinite;
+    }
+    
+    @keyframes shimmer {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+    
+    .importance-value {
+      font-weight: 700;
+      color: var(--primary);
+      min-width: 70px;
+      text-align: right;
+    }
+    
+    /* Footer */
+    .footer {
+      background: var(--bg-card);
+      padding: 3rem 0;
+      text-align: center;
+      margin-top: 5rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    
+    .footer p {
+      margin-bottom: 0.5rem;
+    }
+    
+    .footer .highlight {
+      color: var(--primary);
+      font-weight: 600;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 2rem;
+      }
+      
+      .header p {
+        font-size: 1.1rem;
+      }
+      
+      .nav ul {
+        gap: 1rem;
+        padding: 1rem;
+      }
+      
+      .pipeline-step:not(:last-child)::after {
+        display: none;
+      }
+      
+      .pipeline {
+        flex-direction: column;
+      }
+      
+      .importance-label {
+        flex: 0 0 180px;
+        font-size: 0.8rem;
+      }
+      
+      .metric-value {
+        font-size: 2.5rem;
+      }
+    }
+    
+    /* Smooth scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    /* Selection */
+    ::selection {
+      background: var(--primary);
+      color: white;
+    }
+    
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 12px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: var(--bg-card);
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: var(--gradient-primary);
+      border-radius: 6px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--primary);
+    }
+    
+    /* Loading animation for cards */
+    .card, .metric-card, .feature-card {
+      animation: cardLoad 0.6s ease-out;
+      animation-fill-mode: both;
+    }
+    
+    @keyframes cardLoad {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: var(--gradient-primary);
+      margin: 4rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .divider::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: white;
+      animation: dividerSlide 3s ease-in-out infinite;
+    }
+    
+    @keyframes dividerSlide {
+      0% { left: -100%; }
+      50% { left: 100%; }
+      100% { left: 100%; }
+    }
+    
+    /* Inline code */
+    code {
+      background: var(--bg-code);
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', monospace;
+      font-size: 0.875em;
+      color: var(--primary);
+      border: 1px solid var(--border);
+    }
+    
+    /* Strong text */
+    strong {
+      font-weight: 700;
+      color: var(--primary);
+    }
+    
+    /* Links */
+    a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    a:hover {
+      color: var(--primary-dark);
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <h1>American Express Campus Challenge 2025</h1>
+      <p>Trinity Model - Advanced Offerings Personalization System</p>
+    </div>
+  </header>
+  
+  <nav class="nav">
+    <div class="container">
+      <ul>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#architecture">Architecture</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#model">Model</a></li>
+        <li><a href="#results">Results</a></li>
+        <li><a href="#implementation">Implementation</a></li>
+      </ul>
+    </div>
+  </nav>
+  
+  <main class="container">
+    <!-- Overview Section -->
+    <section id="overview" class="section">
+      <h2>Executive Summary</h2>
+      
+      <div class="metrics-grid">
+<!--        <div class="metric-card">-->
+<!--          <div class="metric-value">96%</div>-->
+<!--          <div class="metric-label">Validation AUC</div>-->
+<!--        </div>-->
+        <div class="metric-card">
+          <div class="metric-value">76%</div>
+          <div class="metric-label">Test MAP@7 Score</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">199</div>
+          <div class="metric-label">Optimized Features</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-value">28M+</div>
+          <div class="metric-label">Data Points Processed</div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <h3>Project Objective</h3>
+        <p>The American Express Campus Challenge 2025 focused on developing an advanced recommendation system to personalize credit card offerings. The challenge required predicting which offers would most likely be clicked by specific customers, optimizing rankings using the MAP@7 (Mean Average Precision at 7) metric.</p>
+        
+      <div class="card">
+        <h3>Technical Challenges</h3>
+        <ul>
+          <li>Processing 28+ million data elements across 5 interconnected datasets</li>
+          <li>Managing extreme class imbalance (19:1 ratio, ~5% click rate)</li>
+          <li>Engineering 199 high-impact features from 366 original variables</li>
+          <li>Optimizing for ranking performance using LambdaRank objective</li>
+        </ul>
+      </div>
+    </section>
+    
+    <div class="divider"></div>
+    
+    <!-- Data Architecture Section -->
+    <section id="architecture" class="section">
+      <h2>Data Architecture</h2>
+      
+      <div class="card">
+        <h3>Dataset Overview</h3>
+        <table class="data-table">
+          <thead>
+          <tr>
+            <th>Dataset</th>
+            <th>Rows</th>
+            <th>Columns</th>
+            <th>Purpose</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td><strong>Training Data</strong></td>
+            <td>770,164</td>
+            <td>372</td>
+            <td>Historical customer-offer interactions with labels</td>
+          </tr>
+          <tr>
+            <td><strong>Test Data</strong></td>
+            <td>369,301</td>
+            <td>371</td>
+            <td>Evaluation dataset for predictions</td>
+          </tr>
+          <tr>
+            <td><strong>Events Data</strong></td>
+            <td>21,457,473</td>
+            <td>5</td>
+            <td>Customer interaction history and patterns</td>
+          </tr>
+          <tr>
+            <td><strong>Transaction Data</strong></td>
+            <td>6,339,465</td>
+            <td>9</td>
+            <td>Customer spending behavior analysis</td>
+          </tr>
+          <tr>
+            <td><strong>Offer Metadata</strong></td>
+            <td>4,164</td>
+            <td>12</td>
+            <td>Offer characteristics and attributes</td>
+          </tr>
+          </tbody>
+        </table>
+        
+        <div class="alert alert-info">
+          <strong>Data Scale:</strong> 28+ million total data points processed using GPU-accelerated pipelines for efficient feature engineering and model training.
+        </div>
+      </div>
+      
+      <div class="card">
+        <h3>Data Processing Pipeline</h3>
+        <div class="pipeline">
+          <div class="pipeline-step">
+            <div class="step-number">1</div>
+            <h4>Data Integration</h4>
+            <p>Multi-source merge with behavioral patterns</p>
+          </div>
+          <div class="pipeline-step">
+            <div class="step-number">2</div>
+            <h4>Feature Engineering</h4>
+            <p>Temporal and behavioral feature creation</p>
+          </div>
+          <div class="pipeline-step">
+            <div class="step-number">3</div>
+            <h4>Feature Selection</h4>
+            <p>199 features from 500+ candidates</p>
+          </div>
+          <div class="pipeline-step">
+            <div class="step-number">4</div>
+            <h4>Model Training</h4>
+            <p>LambdaRank optimization</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <div class="divider"></div>
+    
+    <!-- Feature Engineering Section -->
+    <section id="features" class="section">
+      <h2>Feature Engineering</h2>
+      
+      <div class="card">
+        <h3>Feature Categories Distribution</h3>
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-value">66.5%</div>
+            <div class="metric-label">Temporal Features</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">12.5%</div>
+            <div class="metric-label">Encoded Features</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">11.0%</div>
+            <div class="metric-label">Rates & Ratios</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">10.0%</div>
+            <div class="metric-label">Other Categories</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <h3>Top 10 Features by Importance</h3>
+        <div class="importance-bar">
+          <span class="importance-label">time_since_last_event</span>
+          <div class="importance-progress">
+            <div class="importance-fill" style="width: 100%"></div>
+          </div>
+          <span class="importance-value">46.89%</span>
+        </div>
+        <div class="importance-bar">
+          <span class="importance-label">time_since_prev_txn_hours</span>
+          <div class="importance-progress">
+            <div class="importance-fill" style="width: 38.9%"></div>
+          </div>
+          <span class="importance-value">18.25%</span>
+        </div>
+        <div class="importance-bar">
+          <span class="importance-label">quick_click_rate_weighted</span>
+          <div class="importance-progress">
+            <div class="importance-fill" style="width: 9.5%"></div>
+          </div>
+          <span class="importance-value">4.44%</span>
+        </div>
+        <div class="importance-bar">
+          <span class="importance-label">ctr_vs_median</span>
+          <div class="importance-progress">
+            <div class="importance-fill" style="width: 4.4%"></div>
+          </div>
+          <span class="importance-value">2.07%</span>
+        </div>
+        <div class="importance-bar">
+          <span class="importance-label">f210</span>
+          <div class="importance-progress">
+            <div class="importance-fill" style="width: 3.1%"></div>
+          </div>
+          <span class="importance-value">1.45%</span>
+        </div>
+        <div class="importance-bar">
+          <span class="importance-label">competitive_advantage_score</span>
+          <div class="importance-progress">
+            <div class="importance-fill" style="width: 2.1%"></div>
+          </div>
+          <span class="importance-value">0.99%</span>
+        </div>
+        <div class="importance-bar">
+          <span class="importance-label">performance_ceiling</span>
+          <div class="importance-progress">
+            <div class="importance-fill" style="width: 1.9%"></div>
+          </div>
+          <span class="importance-value">0.90%</span>
+        </div>
+        <div class="importance-bar">
+          <span class="importance-label">f314</span>
+          <div class="importance-progress">
+            <div class="importance-fill" style="width: 1.5%"></div>
+          </div>
+          <span class="importance-value">0.69%</span>
+        </div>
+        <div class="importance-bar">
+          <span class="importance-label">zscore_manhattan</span>
+          <div class="importance-progress">
+            <div class="importance-fill" style="width: 1.5%"></div>
+          </div>
+          <span class="importance-value">0.69%</span>
+        </div>
+        <div class="importance-bar">
+          <span class="importance-label">recency</span>
+          <div class="importance-progress">
+            <div class="importance-fill" style="width: 1.3%"></div>
+          </div>
+          <span class="importance-value">0.62%</span>
+        </div>
+      </div>
+      
+<!--      <div class="card">-->
+<!--        <h3>Temporal Feature Engineering</h3>-->
+<!--        <div class="code-block">-->
+<!--                    <pre><span class="comment"># Forward-looking temporal gap (Most Important: 46.89%)</span>-->
+<!--<span class="variable">time_since_last_event</span> = <span class="variable">df</span>.<span class="function">groupby</span>(<span class="string">'id2'</span>)[<span class="string">'id4'</span>].<span class="function">diff</span>().<span class="function">shift</span>(<span class="number">-1</span>).<span class="variable">dt</span>.<span class="function">total_seconds</span>() / <span class="number">3600</span>-->
+
+<!--<span class="comment"># Backward-looking temporal gap (18.25%)</span>-->
+<!--<span class="variable">time_since_prev_txn_hours</span> = <span class="variable">df</span>.<span class="function">groupby</span>(<span class="string">'id2'</span>)[<span class="string">'id4'</span>].<span class="function">diff</span>().<span class="variable">dt</span>.<span class="function">total_seconds</span>() / <span class="number">3600</span>-->
+
+<!--<span class="comment"># Customer recency analysis</span>-->
+<!--<span class="variable">recency</span> = <span class="variable">df</span>.<span class="function">groupby</span>(<span class="string">'id2'</span>)[<span class="string">'id4'</span>].<span class="function">transform</span>(<span class="keyword">lambda</span> <span class="variable">x</span>: (<span class="variable">x</span>.<span class="function">max</span>() - <span class="variable">x</span>).<span class="variable">dt</span>.<span class="function">total_seconds</span>() / <span class="number">3600</span>)-->
+
+<!--<span class="comment"># Cyclical temporal encoding</span>-->
+<!--<span class="variable">hour_sin</span> = <span class="variable">np</span>.<span class="function">sin</span>(<span class="number">2</span> * <span class="variable">np</span>.<span class="variable">pi</span> * <span class="variable">hour</span> / <span class="number">24</span>)-->
+<!--<span class="variable">hour_cos</span> = <span class="variable">np</span>.<span class="function">cos</span>(<span class="number">2</span> * <span class="variable">np</span>.<span class="variable">pi</span> * <span class="variable">hour</span> / <span class="number">24</span>)</pre>-->
+<!--        </div>-->
+<!--      </div>-->
+      
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h4>Temporal Features</h4>
+          <p>Forward and backward-looking time gaps, recency measures, cyclical encodings, and rolling window calculations accounting for 66.5% of model importance.</p>
+        </div>
+        <div class="feature-card">
+          <h4>Customer Behavioral</h4>
+          <p>Aggregated metrics, spending patterns, interaction history, and 50-cluster segmentation for personalized targeting.</p>
+        </div>
+        <div class="feature-card">
+          <h4>Rate & Ratio Features</h4>
+          <p>Click-through rates, performance ratios, weighted engagement metrics, and competitive scores for quality assessment.</p>
+        </div>
+      </div>
+    </section>
+    
+    <div class="divider"></div>
+    
+    <!-- Model Section -->
+    <section id="model" class="section">
+      <h2>Model Architecture</h2>
+      
+      <div class="card">
+        <h3>Optimized LightGBM LambdaRank Configuration</h3>
+        <div class="code-block">
+    <pre><span class="variable">params</span> = {
+    <span class="string">'objective'</span>: <span class="string">'lambdarank'</span>,
+    <span class="string">'metric'</span>: <span class="string">'map'</span>,
+    <span class="string">'eval_at'</span>: [<span class="number">7</span>],                          
+    <span class="string">'lambdarank_truncation_level'</span>: <span class="number">7</span>,        
+    <span class="string">'lambdarank_norm'</span>: <span class="literal">True</span>,                 
+
+    <span class="string">'boosting_type'</span>: <span class="string">'gbdt'</span>,
+    <span class="string">'num_leaves'</span>: <span class="number">63</span>,                        
+    <span class="string">'learning_rate'</span>: <span class="number">0.03</span>,                   
+    <span class="string">'max_depth'</span>: <span class="number">-1</span>,                         
+
+    <span class="string">'feature_fraction'</span>: <span class="number">0.8</span>,                 
+    <span class="string">'bagging_fraction'</span>: <span class="number">0.8</span>,                 
+    <span class="string">'bagging_freq'</span>: <span class="number">5</span>,
+
+    <span class="string">'lambda_l1'</span>: <span class="number">0.1</span>,                        
+    <span class="string">'lambda_l2'</span>: <span class="number">0.1</span>,                        
+    <span class="string">'min_data_in_leaf'</span>: <span class="number">50</span>,                  
+    <span class="string">'min_gain_to_split'</span>: <span class="number">0.0</span>,                
+    <span class="string">'max_bin'</span>: <span class="number">255</span>,                          
+
+    <span class="string">'force_col_wise'</span>: <span class="literal">True</span>,
+    <span class="string">'num_threads'</span>: <span class="number">-1</span>,
+    <span class="string">'verbosity'</span>: <span class="number">1</span>,
+    <span class="string">'seed'</span>: <span class="number">42</span>
+}</pre>
+        </div>
+      </div>
+      
+      
+      <div class="card">
+        <h3>Training Strategy</h3>
+        <ul>
+          <li><strong>Objective:</strong> LambdaRank for direct ranking optimization</li>
+          <li><strong>Validation:</strong> Temporal split to simulate production conditions</li>
+          <li><strong>Early Stopping:</strong> 100 rounds patience to prevent overfitting</li>
+          <li><strong>Iterations:</strong> 1200+ boosting rounds for optimal performance</li>
+          <li><strong>Regularization:</strong> L1/L2 penalties with feature sampling</li>
+          <li><strong>GPU Acceleration:</strong> Enabled for efficient processing</li>
+        </ul>
+      </div>
+      
+      <div class="card">
+        <h3>Model Optimization Process</h3>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <h4>Feature Selection</h4>
+            <p>Multi-stage selection using LightGBM gain, correlation filtering, RFE, and SHAP values to identify 199 optimal features.</p>
+          </div>
+          <div class="feature-card">
+            <h4>Hyperparameter Tuning</h4>
+            <p>Bayesian optimization across learning rate, tree parameters, and regularization to maximize MAP@7 performance.</p>
+          </div>
+          <div class="feature-card">
+            <h4>Class Imbalance</h4>
+            <p>Scale position weight of 18.25 to handle extreme 19:1 imbalance while maintaining ranking quality.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <div class="divider"></div>
+    
+    <!-- Results Section -->
+    <section id="results" class="section">
+      <h2>Results</h2>
+      
+      <div class="card">
+        <h3>Model Performance Evolution</h3>
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-value">70%</div>
+            <div class="metric-label">Initial Validation MAP@7 Using No Additional Data</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">78%</div>
+            <div class="metric-label">Validation MAP@7 With Temporal Features And Events Data</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">85%</div>
+            <div class="metric-label">Validation MAP@7 With Temporal Features And All Additional Datasets</div>
+          </div>
+          <!-- <div class="metric-card">
+            <div class="metric-value">96%</div>
+            <div class="metric-label">Final AUC</div>
+          </div> -->
+        </div>
+      </div>
+      
+      <div class="card">
+        <h3>Key Insights</h3>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <h4>Temporal Dominance</h4>
+            <p>Timing accounts for 66.5% of model importance. Customer engagement tempo measurement (in hours) indicating typical time intervals between interactions within observed behavioral sessions was the strongest predictor</p>
+          </div>
+          <div class="feature-card">
+            <h4>Customer Memory</h4>
+            <p>Past behavioral patterns strongly predict future clicks. Customer-level aggregations are crucial for personalization.</p>
+          </div>
+          <div class="feature-card">
+            <h4>Quality Over Quantity</h4>
+            <p>Weighted click rates and relative performance metrics outperform raw counts in predictive power.</p>
+          </div>
+        </div>
+      </div>
+      
+    
+    <div class="divider"></div>
+    
+    <!-- Implementation Section -->
+    <section id="implementation" class="section">
+      <h2>Production Implementation</h2>
+      
+      <div class="card">
+        <h3>Trinity Model Pipeline</h3>
+        <div class="code-block">
+                    <pre><span class="keyword">class</span> <span class="function">TrinityOfferRecommendationPipeline</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(<span class="keyword">self</span>):
+        <span class="keyword">self</span>.<span class="variable">feature_pipeline</span> = <span class="function">TemporalFeatureEngineer</span>()
+        <span class="keyword">self</span>.<span class="variable">model</span> = <span class="function">load_model</span>(<span class="string">'trinity_lambdarank_96auc.pkl'</span>)
+        <span class="keyword">self</span>.<span class="variable">scaler</span> = <span class="function">load_scaler</span>(<span class="string">'trinity_feature_scaler.pkl'</span>)
+        <span class="keyword">self</span>.<span class="variable">clusterer</span> = <span class="function">load_model</span>(<span class="string">'customer_kmeans_50.pkl'</span>)
+        
+    <span class="keyword">def</span> <span class="function">predict_top_offers</span>(<span class="keyword">self</span>, <span class="variable">customer_id</span>, <span class="variable">available_offers</span>):
+        <span class="comment"># Extract temporal and behavioral features</span>
+        <span class="variable">features</span> = <span class="keyword">self</span>.<span class="variable">feature_pipeline</span>.<span class="function">extract_trinity_features</span>(
+            <span class="variable">customer_id</span>,
+            <span class="variable">available_offers</span>
+        )
+        
+        <span class="comment"># Apply customer clustering</span>
+        <span class="variable">features</span>[<span class="string">'customer_cluster'</span>] = <span class="keyword">self</span>.<span class="variable">clusterer</span>.<span class="function">predict</span>(<span class="variable">features</span>[<span class="variable">cluster_cols</span>])
+        
+        <span class="comment"># Generate LambdaRank predictions</span>
+        <span class="variable">scores</span> = <span class="keyword">self</span>.<span class="variable">model</span>.<span class="function">predict</span>(<span class="variable">features</span>[<span class="variable">trinity_features</span>])
+        
+        <span class="comment"># Rank and return top 7 for MAP@7</span>
+        <span class="variable">top_indices</span> = <span class="variable">np</span>.<span class="function">argsort</span>(<span class="variable">scores</span>)[<span class="operator">::-1</span>][<span class="operator">:</span><span class="number">7</span>]
+        <span class="keyword">return</span> <span class="variable">available_offers</span>[<span class="variable">top_indices</span>]</pre>
+        </div>
+        
+      </div>
+      
+      <div class="card">
+        <h3>Future Enhancements</h3>
+        <ul>
+          <li><strong>Multi-Model Ensemble:</strong> Combine LightGBM with XGBoost and neural networks</li>
+          <li><strong>Graph Neural Networks:</strong> Model customer-offer-merchant relationships</li>
+          <li><strong>Real-Time Learning:</strong> Online model updates for dynamic adaptation</li>
+          <li><strong>Advanced Personalization:</strong> Individual-level hyperparameter tuning</li>
+          <li><strong>Cross-Channel Integration:</strong> Unified web, mobile, and physical touchpoints</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+  
+  <footer class="footer">
+    <div class="container">
+      <p>American Express Campus Challenge 2025 - Trinity Model Documentation</p>
+      <p><span class="highlight">76% Test MAP@7</span> | <span class="highlight">199 Optimized Features</span></p>
+      <p>Developed by Team Trinity - IIT Kanpur</p>
+    </div>
+  </footer>
+  
+  <script>
+    // Smooth scroll behavior for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+    
+    // Animate importance bars when in viewport
+    const observerOptions = {
+      threshold: 0.2,
+      rootMargin: '0px'
+    };
+    
+    const animateOnScroll = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Animate importance bars
+          const fills = entry.target.querySelectorAll('.importance-fill');
+          fills.forEach(fill => {
+            const width = fill.style.width;
+            fill.style.width = '0';
+            setTimeout(() => {
+              fill.style.width = width;
+            }, 100);
+          });
+          
+          // Animate metric values
+          const metricValues = entry.target.querySelectorAll('.metric-value');
+          metricValues.forEach((value, index) => {
+            value.style.animationDelay = `${index * 0.1}s`;
+          });
+          
+          // Add visible class for cards
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+    
+    // Observe all sections
+    document.querySelectorAll('.section').forEach(section => {
+      animateOnScroll.observe(section);
+    });
+    
+    // Add stagger animation to cards
+    document.querySelectorAll('.card, .metric-card, .feature-card').forEach((card, index) => {
+      card.style.animationDelay = `${index * 0.1}s`;
+    });
+  </script>
+</body>
+</html>
